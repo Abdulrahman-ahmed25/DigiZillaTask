@@ -16,14 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from signup.views import signup_view
-from profiles.views import view_profile,file_list,file_upload
+from profiles.views import view_profile,file_list,file_upload,GenericsList,GenericsBk
 from home.views import calculate_distance
 from django.contrib.auth import views as auth_view
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-        
+
+#for RESTFUL API about UploadFile model
+    path('api-auth/', include('rest_framework.urls')),
+#GET POST from REST framework by class based views using Mixins
+    path('rest/genericslist/', GenericsList.as_view()), 
+#GET PUT DELETE from REST framework by class based views using Mixins
+    path('rest/genericslist/<int:pk>', GenericsBk.as_view()),
+
+
 #for user profile page
     path('',calculate_distance ,name='calculateDistance'),
     path('profile/',view_profile, name='profile'),

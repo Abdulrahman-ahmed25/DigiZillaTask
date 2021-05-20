@@ -2,13 +2,12 @@ from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
 from .forms import FileForm
 from .models import UploadFile
+from .serializers import FileSerializer
+from rest_framework import generics
+from .paginations import CustomPagination
 
 # Create your views here.
 def view_profile(request):
-    # if request.method == 'POST':
-    #     uploaded_file = request.FILES['document']
-    #     fs = FileSystemStorage()
-    #     fs.save(uploaded_file.name, uploaded_file)
     context={
         'user':request.user
     }
@@ -31,3 +30,14 @@ def file_upload(request):
     return render(request, "profiles/file_upload.html", {
         'form': form
     })
+#6 using generics
+#6.1 GET POST
+class GenericsList(generics.ListCreateAPIView):
+    queryset = UploadFile.objects.all()
+    serializer_class = FileSerializer
+    pagination_class = CustomPagination
+
+#6.2 GET PUT DELETE
+class GenericsBk(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UploadFile.objects.all()
+    serializer_class = FileSerializer
