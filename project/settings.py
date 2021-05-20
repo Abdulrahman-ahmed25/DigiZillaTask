@@ -79,12 +79,61 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE = 1
+
+if DEBUG and (DATABASE == 1):
+    # Use SQLite Database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+#to convert sqlite3 to any database like postgresql or MySQL
+#first -> python manage.py dumpdata > datadump.json
+#then->
+elif DEBUG and (DATABASE == 2):
+    # Use Local Postgres Dtabase
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            # set database name
+            'NAME': '<name_of_your_database>',
+            # set your user details
+            'USER': 'admin',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'POST': '5432'
+        }
+    }
+#for MySQL -> i Didn't that because i had issue with apache
+elif DEBUG and (DATABASE ==3):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': '/path/to/my.cnf',
+            },
+            # my.cnf
+            # [client]
+            'NAME': '<name_of_your_database>',
+            'USER': 'admin',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'POST': '3306'
+        }
+    }
+
+else:
+    # Use Production Dtabase e.g Postgres
+    # Using SQLite Database for demonstration
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 
 # Password validation
