@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{%block content%}
+<div class="container">
+    {% if user.is_authenticated %}
+    <h1>Profile</h1>
+    <hr>
+    <br>
+    <h5>Name: <span style="color: #6c98e1;">{{user.username}}</span></h5>
+    <h5>Email: <span style="color: #6c98e1;">{{user.email}}</span></h5>
+    <h5>Password: <span style="color: #6c98e1;">{{user.password}}</span></h5>
+    <br>
+    <h6>
+        if you want to show the uploaded files <a href="{% url 'file_list'%}" class="btn btn-success" target="_blank">Files uploaded</a>
+    </h6>
+    
+    {%else%}
+    <h2>login to view your details</h2>
+    {%endif%}
+
+</div>
+{%endblock%}

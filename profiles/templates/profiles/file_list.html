@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+    {%block title%}
+    <div class="container" style="padding: 0 10%;">
+    <h1>Files Uploaded</h1>
+    <hr>
+    <p>
+        <a href="{% url 'file_upload'%}" class="btn btn-success" target="_blank">Upload File</a>
+    </p>
+    <br>
+    {%endblock%}
+    {%block content%}
+        <table class='table'>
+            <thead>
+                <th>Title</th>
+                <th>Download</th>
+            </thead>
+            <tbody>
+            {% for file in files%}
+                <tr>
+                    <td>{{file.title}}</td>
+                    <td>
+                        <a href="{{file.file_upload.url}}" class="btn btn-success" target="_blank">Download File</a>
+                    </td>
+                </tr>
+            {%endfor%}
+            </tbody>
+    </div>
+
+    {%endblock%}

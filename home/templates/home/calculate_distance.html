@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{%block content%}
+<div class="container">
+    {% if user.is_authenticated %}
+    <h2>To calculate the distance between 2 destinations!</h2>
+    <hr>
+    <br>
+
+    <form method="POST" class="form-group">{% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Origin</label>
+        <input type="text" class="form-control" id="origin" name ='origin' placeholder="Enter a location">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Destination</label>
+        <input type="text" class="form-control" id="destination" name='destination' placeholder="Enter a location">
+    </div>
+        <button type="submit"  class="btn btn-success" style="margin: 12px 0;">Calculate</button>
+    </form>
+    <table class="table">
+  <tbody>
+    <tr>
+      <td>origin address:</td>
+      <td>{{origin}}</td>
+    </tr>
+    <tr>
+      <td>destination address:</td>
+      <td>{{destination}}</td>
+    </tr>
+    <tr>
+      <td>Distance between them in kg:</td>
+      <td>{{distance}}</td>
+    </tr>
+    <tr>
+      <td>Duration in minutes:</td>
+      <td>{{duration}}</td>
+    </tr>
+  </tbody>
+</table>
+
+    {%else%}
+    <h2>Hello Mr/Mrs Welcome to DigiZilla</h2>
+    <h4 style="color: #6c98e1;">login please!</h4>
+    {%endif%}
+</div>
+{%endblock%}
